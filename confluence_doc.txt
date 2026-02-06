@@ -1,0 +1,60 @@
+PLANE PROJECT SETUP AND RUN GUIDE
+
+This guide provides simple instructions for setting up the Plane project locally.
+
+1. PREREQUISITES:
+Make sure you have the following installed on your machine
+- Node.js version 22.18.0 or higher
+- pnpm package manager
+- Docker and Docker Compose (for running local services like database and redis)
+
+2. INITIAL SETUP:
+Open your terminal in the project root directory and run the following commands
+
+A. ENABLE COREPACK:
+Run the command
+    "corepack enable"
+
+B. CONFIGURE ENVIRONMENT VARIABLES:
+Run the setup script to copy environment examples and generate secret keys
+
+a. For Windows (PowerShell):
+    "./setup.ps1"
+b. For Linux or macOS:
+    "./setup.sh"
+
+C. INSTALL DEPENDENCIES:
+Run the command
+    "pnpm install"
+
+D. Build the modules to run the application:
+Run the command:
+    "pnpm build"
+
+3. RUNNING THE PROJECT
+
+A. START LOCAL SERVICES (DATABASE, REDIS, ETC.)
+The project requires several services to be running (Postgres, Redis, RabbitMQ, Minio).
+
+Run the command for backednd to create a container in docker:
+"docker compose -f docker-compose-local.yml up -d"(port=8000)
+Backend API endpoint: "http://localhost:8000"
+
+B. RUN THE BACKEND (API):
+In docker container check whether the backend is running or not and check api also
+"docker logs -f <container_name>"
+
+C. RUN THE FRONTEND APPLICATIONS:
+Run the command for frontend apps:
+"pnpm dev --filter=web --filter=admin --filter=space"
+
+Frontend API endpoints:
+Web app endpoint: "http://localhost:3000"
+Admin app endpoint: "http://localhost:3001"
+Space app endpoint: "http://localhost:3002"
+
+D. To run the whole live appication:
+Run the command:
+"pnpm dev"
+
+Now your whole application is live in loca system.
